@@ -2,7 +2,7 @@
 const dataGuru = {
   faqih: {
     nama: "Abd. Faqih, S.Pd.",
-    mapel: "IPA",
+    mapel: "Ilmu Pengetahuan Alam (IPA)",
     kelas: ["VII-B", "VII-C"],
     password: "123",
     jadwal: {
