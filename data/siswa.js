@@ -15,6 +15,7 @@ const dataSiswa = {
     "Hafilullah Chairul Affan",
     "Hafidz Ali Yusuf",
     "Khalid Abdillah",
+    "M.B Sultan Ayyasy",
     "M. Izzat Akhdan AK",
     "M. Aldo Alfharis",
     "M. Arif Firdaus",
