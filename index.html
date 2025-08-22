@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Presensi & Penilaian</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .fade-in {
+        animation: fadeIn 0.3s ease-in;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .slide-up {
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Login Screen -->
+    <div
+      id="loginScreen"
+      class="min-h-screen flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md slide-up">
+        <div class="text-center mb-8">
+          <div
+            class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <span class="text-white text-2xl">📚</span>
+          </div>
+          <h1 class="text-2xl font-bold text-gray-800">Sistem Presensi</h1>
+          <p class="text-gray-600 mt-2">SMP Tahfidz Al-Amien</p>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="passwordInput"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Masukkan password"
+            />
+          </div>
+          <button
+            onclick="login()"
+            class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          >
+            Masuk
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="hidden">
+      <!-- Header -->
+      <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div
+              class="bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center"
+            >
+              <span class="text-white text-lg">📚</span>
+            </div>
+            <div>
+              <h1 id="guruNama" class="font-semibold text-gray-800 text-sm">
+                Abd. Faqih, S.Pd.
+              </h1>
+              <p id="guruMapel" class="text-xs text-gray-600">Guru IPA</p>
+            </div>
+          </div>
+          <button onclick="logout()" class="text-red-600 text-sm font-medium">
+            Keluar
+          </button>
+        </div>
+      </header>
+
+      <!-- Navigation -->
+      <nav class="bg-white border-b border-gray-200">
+        <div class="flex overflow-x-auto">
+          <button
+            onclick="showScreen('dashboard')"
+            class="nav-btn flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-blue-600 text-blue-600"
+          >
+            Dashboard
+          </button>
+          <button
+            onclick="showScreen('presensi')"
+            class="nav-btn flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600"
+          >
+            Presensi
+          </button>
+          <button
+            onclick="showScreen('penilaian')"
+            class="nav-btn flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600"
+          >
+            Penilaian
+          </button>
+          <button
+            onclick="showScreen('jurnal')"
+            class="nav-btn flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600"
+          >
+            Jurnal
+          </button>
+          <button
+            onclick="showScreen('rekap')"
+            class="nav-btn flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-gray-600"
+          >
+            Rekap
+          </button>
+        </div>
+      </nav>
+
+      <!-- Dashboard Screen -->
+      <div id="dashboardScreen" class="screen p-4 space-y-4">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <div class="text-center space-y-2">
+            <h1 id="dashboardNama" class="text-2xl font-bold text-gray-800">
+              Abd. Faqih, S.Pd.
+            </h1>
+            <p id="dashboardMapel" class="text-lg text-gray-600">IPA</p>
+            <p class="text-base text-gray-500">SMP Tahfidz Al-Amien</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">
+            Waktu & Jadwal
+          </h2>
+          <div class="text-center mb-4">
+            <div
+              id="currentTime"
+              class="text-3xl font-bold text-blue-600"
+            ></div>
+            <div id="currentDate" class="text-gray-600 mt-1"></div>
+          </div>
+          <div id="todaySchedule" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- Presensi Screen -->
+      <div id="presensiScreen" class="screen hidden p-4 space-y-4">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">
+            Presensi Siswa
+          </h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Pilih Kelas</label
+              >
+              <select
+                id="presensiKelas"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Pilih Kelas</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Tanggal</label
+              >
+              <input
+                type="date"
+                id="presensiTanggal"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <button
+              onclick="tampilkanPresensi()"
+              class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700"
+            >
+              Tampilkan
+            </button>
+          </div>
+        </div>
+
+        <div id="daftarSiswa" class="hidden space-y-3"></div>
+
+        <div id="kirimPresensi" class="hidden">
+          <button
+            onclick="kirimDataPresensi()"
+            class="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 mt-4"
+          >
+            Kirim Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Penilaian Screen -->
+      <div id="penilaianScreen" class="screen hidden p-4 space-y-4">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">
+            Input Penilaian
+          </h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Pilih Kelas</label
+              >
+              <select
+                id="penilaianKelas"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Pilih Kelas</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Tanggal</label
+              >
+              <input
+                type="date"
+                id="penilaianTanggal"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Jenis Penilaian</label
+              >
+              <select
+                id="jenisPenilaian"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                onchange="toggleUrutanTugas()"
+              >
+                <option value="Tugas">Tugas</option>
+                <option value="Catatan">Catatan</option>
+                <option value="UTS">UTS</option>
+                <option value="UAS">UAS</option>
+              </select>
+            </div>
+            <div id="urutanTugasDiv">
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Urutan Tugas Ke-</label
+              >
+              <input
+                type="number"
+                id="urutanTugas"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="1"
+                min="1"
+                max="50"
+                value="1"
+              />
+              <p class="text-xs text-gray-500 mt-1">
+                Contoh: 1 = Tugas ke-1, 2 = Tugas ke-2, dst.
+              </p>
+            </div>
+
+            <button
+              onclick="tampilkanPenilaian()"
+              class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700"
+            >
+              Tampilkan
+            </button>
+          </div>
+        </div>
+
+        <div id="daftarNilai" class="hidden space-y-3"></div>
+
+        <div id="kirimPenilaian" class="hidden">
+          <button
+            onclick="kirimDataPenilaian()"
+            class="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 mt-4"
+          >
+            Kirim Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Jurnal Screen -->
+      <div id="jurnalScreen" class="screen hidden p-4 space-y-4">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">
+            Jurnal Mengajar
+          </h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Pilih Kelas</label
+              >
+              <select
+                id="jurnalKelas"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Pilih Kelas</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Tanggal</label
+              >
+              <input
+                type="date"
+                id="jurnalTanggal"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <button
+              onclick="tampilkanJurnal()"
+              class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700"
+            >
+              Tampilkan
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="formJurnal"
+          class="hidden bg-white rounded-xl shadow-sm p-6 space-y-4"
+        >
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >BAB</label
+            >
+            <input
+              type="text"
+              id="jurnalBab"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Masukkan BAB"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Topik</label
+            >
+            <input
+              type="text"
+              id="jurnalTopik"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Masukkan Topik"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Catatan</label
+            >
+            <textarea
+              id="jurnalCatatan"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 h-24"
+              placeholder="Masukkan Catatan"
+            ></textarea>
+          </div>
+          <button
+            onclick="simpanJurnal()"
+            class="w-full bg-green-600 text-white py-2 rounded-lg font-medium hover:bg-green-700"
+          >
+            Simpan Jurnal
+          </button>
+        </div>
+
+        <div id="lihatJurnalBtn" class="hidden">
+          <button
+            onclick="tampilkanDaftarJurnal()"
+            class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 mt-4"
+          >
+            Lihat Daftar Jurnal
+          </button>
+        </div>
+
+        <div id="daftarJurnal" class="hidden"></div>
+      </div>
+
+      <!-- Rekap Screen -->
+      <div id="rekapScreen" class="screen hidden p-4 space-y-4">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">Rekap Data</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Pilih Kelas</label
+              >
+              <select
+                id="rekapKelas"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                onchange="updateSiswaFilter()"
+              >
+                <option value="">Pilih Kelas</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Jenis Rekap</label
+              >
+              <select
+                id="jenisRekap"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                onchange="updateSiswaFilter()"
+              >
+                <option value="presensi">Presensi</option>
+                <option value="Tugas">Penilaian - Tugas</option>
+                <option value="Catatan">Penilaian - Catatan</option>
+                <option value="UTS">Penilaian - UTS</option>
+                <option value="UAS">Penilaian - UAS</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Filter Siswa (Opsional)</label
+              >
+              <select
+                id="filterSiswa"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Semua Siswa</option>
+              </select>
+              <p class="text-xs text-gray-500 mt-1">
+                Pilih siswa untuk melihat detail individual
+              </p>
+            </div>
+            <button
+              onclick="tampilkanRekap()"
+              class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700"
+            >
+              Tampilkan Rekap
+            </button>
+          </div>
+        </div>
+
+        <div id="hasilRekap" class="hidden"></div>
+      </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div
+      id="loadingModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-2xl p-8 mx-4 max-w-sm w-full text-center">
+        <div
+          class="animate-spin w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"
+        ></div>
+        <h3 id="modalTitle" class="text-lg font-semibold text-gray-800 mb-2">
+          Mengirim Data ke Server
+        </h3>
+        <p id="modalMessage" class="text-gray-600">Mohon tunggu...</p>
+      </div>
+    </div>
+
+    <!-- Load JavaScript Files -->
+    <script src="data/siswa.js"></script>
+    <script src="data/guru.js"></script>
+    <script src="app.js"></script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9734c6c15294fcef',t:'MTc1NTg5MDkzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
