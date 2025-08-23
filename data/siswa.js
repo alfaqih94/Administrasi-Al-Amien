@@ -20,7 +20,7 @@ const dataSiswa = {
     "M. Arif Firdaus",
     "M. Farham Waalidy",
     "M. Ilzan Faqih Ayatullah",
-    "M. Syabil Khola'alfal A",
+    "M. Syabil Khola alfal A",
     "Rafka Aditya",
     "Syarif Hidayatullah",
     "Ziyan Kafi Aznan",

@@ -94,13 +94,13 @@ function updateTodaySchedule() {
 
   // Show schedules for all days
   const dayNames = [
+    "Sabtu",
     "Minggu",
     "Senin",
     "Selasa",
     "Rabu",
     "Kamis",
     "Jumat",
-    "Sabtu",
   ];
 
   Object.keys(jadwalGuru).forEach((dayNum) => {
@@ -108,23 +108,23 @@ function updateTodaySchedule() {
     const dayName = dayNames[dayIndex];
     const isToday = today === dayIndex;
 
-    allSchedules += `<h3 class="font-semibold text-gray-800 mb-2 ${
-      isToday ? "text-blue-600" : ""
+    allSchedules += `<h3 class="font-semibold text-black mb-2 ${
+      isToday ? "text-black" : ""
     }">${dayName}:</h3>`;
 
     jadwalGuru[dayNum].forEach((jadwal) => {
       allSchedules += `
-                <div class="flex justify-between items-center p-3 rounded-lg mb-2 ${
+                <div class="flex justify-between items-center p-5 rounded-lg mb-2 ${
                   isToday
-                    ? "bg-blue-100 border-2 border-blue-500"
-                    : "bg-gray-50"
+                    ? "bg-green-600 border-4 border-red-800"
+                    : "bg-green-800"
                 }">
-                    <span class="font-medium ${
-                      isToday ? "text-blue-800" : "text-gray-700"
+                    <span class="font-semibold ${
+                      isToday ? "text-black" : "text-black"
                     }">${jadwal.kelas}</span>
-                    <span class="${
-                      isToday ? "text-blue-600" : "text-gray-600"
-                    }">${jadwal.waktu}</span>
+                    <span class="${isToday ? "text-black" : "text-black"}">${
+        jadwal.waktu
+      }</span>
                 </div>
             `;
     });

@@ -3,15 +3,16 @@ const dataGuru = {
   faqih: {
     nama: "Abd. Faqih, S.Pd.",
     mapel: "Ilmu Pengetahuan Alam (IPA)",
+    sekolah: "SMP Tahfidz Al-Amien",
     kelas: ["VII-B", "VII-C"],
     password: "123",
     jadwal: {
-      6: [
+      0: [
         // Sabtu
         { waktu: "07:40 - 09:00", kelas: "VII-C" },
         { waktu: "11:00 - 12:20", kelas: "VII-B" },
       ],
-      0: [
+      1: [
         // Minggu
         { waktu: "07:40 - 09:00", kelas: "VII-B" },
         { waktu: "11:00 - 12:20", kelas: "VII-C" },
@@ -85,12 +86,16 @@ function updateGuruInfo() {
   // Update header
   const guruNama = document.getElementById("guruNama");
   const guruMapel = document.getElementById("guruMapel");
+  const guruSekolah = document.getElementById("guruSekolah");
   if (guruNama) guruNama.textContent = currentGuru.nama;
   if (guruMapel) guruMapel.textContent = `Guru ${currentGuru.mapel}`;
+  if (guruSekolah) guruSekolah.textContent = currentGuru.sekolah;
 
   // Update dashboard
   const dashboardNama = document.getElementById("dashboardNama");
+  const dashboardSekolah = document.getElementById("dashboardSekolah");
   const dashboardMapel = document.getElementById("dashboardMapel");
   if (dashboardNama) dashboardNama.textContent = currentGuru.nama;
+  if (dashboardSekolah) dashboardSekolah.textContent = currentGuru.sekolah;
   if (dashboardMapel) dashboardMapel.textContent = currentGuru.mapel;
 }
