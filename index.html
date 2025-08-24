@@ -68,14 +68,16 @@
               class="w-full h-full object-contain"
             />
           </div>
-          <h1 class="text-2xl font-bold text-green-800">
+          <h1 class="text-xl font-bold text-green-800">
             Sistem Administrasi Sekolah
           </h1>
-          <p class="text-black text-lg mt-2">SMP Tahfidz Al-Amien</p>
+          <p class="text-green-800 text-lg font-bold mt-2">
+            SMP Tahfidz Al-Amien
+          </p>
         </div>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2"
+            <label class="block text-sm font-medium text-green-700 mb-2"
               >Password</label
             >
             <input
@@ -87,14 +89,13 @@
           </div>
           <button
             onclick="login()"
-            class="w-full bg-green-600 text-black font-bold py-3 rounded-lg font-medium hover:bg-green-700 transition-colors"
+            class="w-full bg-green-700 text-lg text-white font-bold py-3 rounded-lg font-medium hover:bg-green-800 transition-colors"
           >
-            Masuk
+            MASUK
           </button>
-          <p class="text-gray-600 text-sm text-center">
+          <p class="text-green-800 style- text-center mt-1">
             Version 1.10.10 - Stable
           </p>
-          <p class="text-gray-600 text-sm text-center">Developed by Alfaqih</p>
         </div>
       </div>
     </div>
@@ -131,11 +132,11 @@
       </header>
 
       <!-- Navigation -->
-      <nav class="bg-white border-b border-green-200">
+      <nav class="bg-white">
         <div class="flex overflow-x-auto">
           <button
             onclick="showScreen('dashboard')"
-            class="nav-btn flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-green-600 text-green-600"
+            class="nav-btn flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-green-600"
           >
             Dashboard
           </button>
@@ -172,7 +173,7 @@
           <div class="text-center space-y-2">
             <h1
               id="dashboardNama"
-              class="text-3xl font-bold text-green-950"
+              class="text-2xl font-bold text-green-950"
             ></h1>
             <p
               id="dashboardSekolah"
@@ -183,15 +184,18 @@
         </div>
 
         <div class="bg-green-200 rounded-xl shadow-sm p-6">
-          <h2 class="text-lg font-semibold text-green-950 mb-4 text-center">
+          <h2 class="text-2xl font-bold text-green-950 mb-4 text-center">
             Waktu & Jadwal
           </h2>
           <div class="text-center mb-4">
             <div
               id="currentTime"
-              class="text-4xl font-bold text-green-950"
+              class="text-6xl font-bold text-green-950"
             ></div>
-            <div id="currentDate" class="text-green-950 mt-1"></div>
+            <div
+              id="currentDate"
+              class="text-2xl text-bold text-green-950"
+            ></div>
           </div>
           <div
             id="todaySchedule"

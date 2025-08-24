@@ -58,11 +58,11 @@ function showScreen(screenName) {
 
   // Update navigation
   document.querySelectorAll(".nav-btn").forEach((btn) => {
-    btn.classList.remove("border-blue-600", "text-blue-600");
-    btn.classList.add("border-transparent", "text-gray-600");
+    btn.classList.remove("font-bold", "bg-green-600", "text-black");
+    btn.classList.add("border-transparent", "text-green-600");
   });
-  event.target.classList.remove("border-transparent", "text-gray-600");
-  event.target.classList.add("border-blue-600", "text-blue-600");
+  event.target.classList.remove("border-transparent", "text-green-600");
+  event.target.classList.add("font-bold", "bg-green-600", "text-black");
 }
 
 // Time and Schedule Functions
@@ -108,23 +108,21 @@ function updateTodaySchedule() {
     const dayName = dayNames[dayIndex];
     const isToday = today === dayIndex;
 
-    allSchedules += `<h3 class="font-semibold text-black mb-2 ${
+    allSchedules += `<h3 class="font-bold text-lg text-black mb-1 ${
       isToday ? "text-black" : ""
     }">${dayName}:</h3>`;
 
     jadwalGuru[dayNum].forEach((jadwal) => {
       allSchedules += `
-                <div class="flex justify-between items-center p-5 rounded-lg mb-2 ${
-                  isToday
-                    ? "bg-green-600 border-4 border-red-800"
-                    : "bg-green-800"
+                <div class="flex justify-between items-center p-3 rounded-xl ${
+                  isToday ? "bg-green-600" : "bg-green-600"
                 }">
-                    <span class="font-semibold ${
-                      isToday ? "text-black" : "text-black"
+                    <span class="font-bold ${
+                      isToday ? "text-sm text-black" : "text-sm text-black"
                     }">${jadwal.kelas}</span>
-                    <span class="${isToday ? "text-black" : "text-black"}">${
-        jadwal.waktu
-      }</span>
+                    <span class="${
+                      isToday ? "text-sm text-black" : "text-sm text-black"
+                    }">${jadwal.waktu}</span>
                 </div>
             `;
     });
