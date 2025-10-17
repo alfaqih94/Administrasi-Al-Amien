@@ -5,16 +5,16 @@ const dataGuru = {
     mapel: "Ilmu Pengetahuan Alam (IPA)",
     sekolah: "SMP Tahfidz Al-Amien",
     kelas: ["VII-B", "VII-C"],
-    password: "123",
+    password: "000",
     jadwal: {
       0: [
         // Sabtu
-        { waktu: "07:40 - 09:00", kelas: "VII-C" },
-        { waktu: "11:00 - 12:20", kelas: "VII-B" },
+        { waktu: "09:20 - 10:40", kelas: "VII-B" },
+        { waktu: "11:00 - 12:20", kelas: "VII-C" },
       ],
       1: [
         // Minggu
-        { waktu: "07:40 - 09:00", kelas: "VII-B" },
+        { waktu: "07:00 - 08:20", kelas: "VII-B" },
         { waktu: "11:00 - 12:20", kelas: "VII-C" },
       ],
     },
