@@ -21,7 +21,6 @@ const dataSiswa = {
     "M. Farham Waalidy",
     "M. Ilzan Faqih Ayatullah",
     "M. Syabil Khola alfal A",
-    "Rafka Aditya",
     "Syarif Hidayatullah",
     "Ziyan Kafi Aznan",
   ],
@@ -31,8 +30,6 @@ const dataSiswa = {
     "Ahmad Kamilil Khair",
     "Ahmad Nurullah",
     "Ahmad Zahran",
-    "Arman Nurahman",
-    "Denis Kiyan Dre Arrohman",
     "Gibran Iddlan Hakim",
     "Gilang Rasya Satriardin",
     "Khodil Jalanidhi Wafi",
@@ -47,7 +44,6 @@ const dataSiswa = {
     "M. Khafid Abdullah",
     "Noval Ribut Bahtiar",
     "Rizki Ikhwan Ramadhan",
-    "Zaky Arasy",
   ],
 };
 
